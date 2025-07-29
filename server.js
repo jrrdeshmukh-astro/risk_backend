@@ -6,6 +6,14 @@ const allowedOrigins = [
   "http://localhost:3000",
 ];
 
+const express = require('express');
+
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const db = require('./db');
+
+const app = express();
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -18,15 +26,6 @@ app.use(cors({
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
-
-
-const express = require('express');
-
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const db = require('./db');
-
-const app = express();
 
 app.use(express.json());
 
