@@ -1,22 +1,13 @@
 require('dotenv').config();
-const express = require('express');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const db = require('./db');
 
-const app = express();
-
-// ✅ CORS configuration
 const allowedOrigins = [
-  '*',
-  'http://localhost:3000', // for local dev
-  'https://adaptive-questionnaire.vercel.app/' // replace with your actual frontend URL
+  "https://adaptive-questionnaire.vercel.app",
+  "http://localhost:3000",
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow no-origin requests (like from curl/Postman)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -24,9 +15,18 @@ app.use(cors({
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+
+const express = require('express');
+
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const db = require('./db');
+
+const app = express();
 
 app.use(express.json());
 
