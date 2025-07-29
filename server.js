@@ -9,6 +9,7 @@ const app = express();
 
 // ✅ CORS configuration
 const allowedOrigins = [
+  '*',
   'http://localhost:3000', // for local dev
   'https://adaptive-questionnaire.vercel.app/' // replace with your actual frontend URL
 ];
