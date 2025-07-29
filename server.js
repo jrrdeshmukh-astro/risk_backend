@@ -6,7 +6,27 @@ const jwt = require('jsonwebtoken');
 const db = require('./db');
 
 const app = express();
-app.use(cors());
+
+// ✅ CORS configuration
+const allowedOrigins = [
+  'http://localhost:3000', // for local dev
+  'https://adaptive-questionnaire.vercel.app/' // replace with your actual frontend URL
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow no-origin requests (like from curl/Postman)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS not allowed from this origin'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 const SECRET = process.env.JWT_SECRET;
@@ -145,6 +165,7 @@ app.get('/assessments', async (req, res) => {
   res.json(result.rows);
 });
 
-app.listen(process.env.PORT || 3001, () => {
-  console.log(`✅ Server running on http://localhost:${process.env.PORT || 3001}`);
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`✅ Server running on http://localhost:${PORT}`);
 });
