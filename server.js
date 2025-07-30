@@ -2,6 +2,7 @@ require('dotenv').config();
 const cors = require('cors');
 
 const allowedOrigins = [
+  "*",
   "https://openstreet.quest",
   "https://openstreet.consulting",
   "https://adaptive-questionnaire.vercel.app",
